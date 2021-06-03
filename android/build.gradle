@@ -24,7 +24,19 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 30
 
+    compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         minSdkVersion 16
     }
+}
+
+dependencies {
+    implementation ('com.khalti:khalti-android:2.00.01') {
+        transitive = true
+    }
+    implementation 'org.jetbrains:annotations:15.0'
 }
