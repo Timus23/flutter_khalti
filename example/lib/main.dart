@@ -47,7 +47,10 @@ class _MyAppState extends State<MyApp> {
               );
               FlutterKhalti.makePayment(payment: payment);
             },
-            child: Text("Hello world"),
+            child: Image.asset(
+              "assets/khalti_logo.png",
+              height: 100,
+            ),
           ),
         ),
       ),
