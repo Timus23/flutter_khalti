@@ -37,6 +37,8 @@ public class FlutterKhaltiPlugin implements FlutterPlugin, MethodCallHandler {
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("initKhaltiPayment")) {
       makePayment(call);
+    } else if(call.method.equals("testPublicKey")){
+      result.success(Constant.pub);
     } else {
       result.notImplemented();
     }

@@ -31,7 +31,8 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: TextButton(
-            onPressed: () {
+            onPressed: () async {
+              final _key = await FlutterKhalti.testPublicKey;
               final payment = KhaltiPayment(
                 onError: (error) {
                   print(error);
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
                 productAmount: 100,
                 productID: "id",
                 productName: "test product",
-                publicKey: "",
+                publicKey: _key,
               );
               FlutterKhalti.makePayment(payment: payment);
             },

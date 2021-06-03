@@ -17,6 +17,15 @@ class FlutterKhalti {
     }
   }
 
+  static Future<String> get testPublicKey async {
+    try {
+      final res = await _channel.invokeMethod('testPublicKey');
+      return res.toString();
+    } catch (e) {
+      throw KhaltiException(e.toString());
+    }
+  }
+
   static _registerKhaltiCallback(KhaltiPayment payment) {
     _channel.setMethodCallHandler((call) {
       switch (call.method) {
