@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_khalti/flutter_khalti.dart';
 import 'package:flutter_khalti/common/khalti_payment.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -35,10 +34,24 @@ class _MyAppState extends State<MyApp> {
               final _key = await FlutterKhalti.testPublicKey;
               final payment = KhaltiPayment(
                 onError: (error) {
-                  print(error);
+                  Fluttertoast.showToast(
+                    msg: "Somethiing went wrong!!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
                 },
                 onSuceess: (res) {
-                  print(res);
+                  Fluttertoast.showToast(
+                    msg: "Payment Successfull!!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
                 },
                 productAmount: 100,
                 productID: "id",
