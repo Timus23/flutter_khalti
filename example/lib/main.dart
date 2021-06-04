@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 onSuceess: (res) {
                   Fluttertoast.showToast(
-                    msg: "Payment Successfull!!",
+                    msg: res.toString(),
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     backgroundColor: Colors.green,

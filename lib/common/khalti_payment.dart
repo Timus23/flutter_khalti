@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_khalti/common/khalti_error.dart';
+import 'package:flutter_khalti/common/khalti_result.dart';
 
 class KhaltiPayment {
   String publicKey;
   String productID;
   String productName;
   double productAmount;
-  ValueChanged<Map<String, dynamic>> onSuceess;
-  ValueChanged<Map<String, dynamic>> onError;
+  ValueChanged<KhaltiResult> onSuceess;
+  ValueChanged<KhaltiError> onError;
 
   KhaltiPayment({
     required this.publicKey,
