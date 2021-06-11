@@ -7,6 +7,7 @@ class KhaltiPayment {
   String productID;
   String productName;
   double productAmount;
+  String urlSchemeIOS;
   ValueChanged<KhaltiResult> onSuceess;
   ValueChanged<KhaltiError> onError;
 
@@ -17,6 +18,7 @@ class KhaltiPayment {
     required this.productName,
     required this.onError,
     required this.onSuceess,
+    this.urlSchemeIOS = "KhaltiPayExampleScheme",
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +27,7 @@ class KhaltiPayment {
       "productName": this.productName,
       "productID": this.productID,
       "productAmount": this.productAmount,
+      "urlSchemeIOS": this.urlSchemeIOS,
     };
   }
 }
