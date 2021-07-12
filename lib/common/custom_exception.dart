@@ -1,5 +1,5 @@
-class CustomException implements Exception {
-  CustomException([this._message, this._prefix]);
+class KhaltiCustomException implements Exception {
+  KhaltiCustomException([this._message, this._prefix]);
 
   final dynamic _message;
   final dynamic _prefix;
@@ -10,6 +10,6 @@ class CustomException implements Exception {
   }
 }
 
-class KhaltiException extends CustomException {
+class KhaltiException extends KhaltiCustomException {
   KhaltiException([String? message]) : super(message, "Something went wrong!!");
 }
