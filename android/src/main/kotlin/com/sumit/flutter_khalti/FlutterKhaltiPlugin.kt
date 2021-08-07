@@ -18,6 +18,7 @@ import java.lang.Exception
 
 /** FlutterKhaltiPlugin */
 class FlutterKhaltiPlugin: MethodCallHandler {
+  
   companion object {
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Activity
