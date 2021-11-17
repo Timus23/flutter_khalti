@@ -1,36 +1,22 @@
 package com.sumit.flutter_khalti
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import com.khalti.checkout.helper.Config
 import com.khalti.checkout.helper.KhaltiCheckOut
 import com.khalti.checkout.helper.OnCheckOutListener
 import com.khalti.utils.Constant
-import java.lang.Exception
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 
 /** FlutterKhaltiPlugin */
-class FlutterKhaltiPlugin: MethodCallHandler {
-  
-  companion object {
-    @SuppressLint("StaticFieldLeak")
-    lateinit var context: Activity
-    lateinit var channel: MethodChannel
+class FlutterKhaltiPlugin: FlutterPlugin, MethodChannel.MethodCallHandler,ActivityAware {
 
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      context = registrar.activity()
-      channel = MethodChannel(registrar.messenger(), "flutter_khalti")
-      channel.setMethodCallHandler(FlutterKhaltiPlugin())
-    }
-  }
+  private lateinit var channel : MethodChannel;
+  lateinit var appActivity: Activity;
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     when (call.method) {
@@ -65,14 +51,37 @@ class FlutterKhaltiPlugin: MethodCallHandler {
 
               override fun onError(action: String, errorMap: MutableMap<String, String>) {
                 val errorMessage = HashMap<String, String>()
-        errorMessage["action"] = action
-        errorMessage["message"] = toString()
-        channel.invokeMethod("khalti_error", errorMessage) }
+                errorMessage["action"] = action
+                errorMessage["message"] = toString()
+                channel.invokeMethod("khalti_error", errorMessage) }
             }
     )
-    val khaltiCheckOut = KhaltiCheckOut(context, builder.build())
-    context.runOnUiThread {
+    val khaltiCheckOut = KhaltiCheckOut(appActivity, builder.build())
+    appActivity.runOnUiThread {
       khaltiCheckOut.show()
     }
+  }
+
+  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    channel = MethodChannel(binding.binaryMessenger, "flutter_khalti")
+    channel.setMethodCallHandler(this)
+  }
+
+  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    channel.setMethodCallHandler(null)
+  }
+
+  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    appActivity = binding.activity;
+  }
+
+  override fun onDetachedFromActivityForConfigChanges() {
+  }
+
+  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    appActivity= binding.activity;
+  }
+
+  override fun onDetachedFromActivity() {
   }
 }

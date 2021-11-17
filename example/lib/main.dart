@@ -7,6 +7,7 @@ import 'package:flutter_khalti/common/khalti_payment.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
